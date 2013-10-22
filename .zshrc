@@ -45,4 +45,4 @@ plugins=(git virtualenv brew colored-man colorize django osx pip rails3 terminal
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/dgupta/.rvm/bin:/Users/dgupta/.rvm/bin
+export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/dgupta/.rvm/bin:/Users/dgupta/.rvm/bin

@@ -133,6 +133,9 @@
 (add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
 
+;; python mode for wsgi
+(add-to-list 'auto-mode-alist '("\\.wsgi\\'" . python-mode))
+
 ;; copy and paste to and from os x
 (defun copy-from-osx ()
   (shell-command-to-string "pbpaste"))
@@ -159,7 +162,6 @@
     (switch-to-buffer-other-window "*ansi-term*")))
 
 (global-set-key (kbd "C-c t") 'visit-term-buffer)
-
 
 ;; window navigation
 (defun other-window-backward ()

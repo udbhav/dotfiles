@@ -169,3 +169,7 @@
   (interactive)
   (other-window -1))
 (global-set-key (kbd "\C-x p") 'other-window-backward)2
+
+;; spacey
+(require 'zone)
+(zone-when-idle 120)

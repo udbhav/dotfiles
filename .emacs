@@ -172,4 +172,4 @@
 
 ;; spacey
 (require 'zone)
-(zone-when-idle 120)
+(zone-when-idle 300)

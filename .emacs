@@ -175,4 +175,4 @@
 (zone-when-idle 300)
 
 ;; query-replace
-(global-set-key (kbd "C-x r") 'query-replace)
+(global-set-key (kbd "C-c r") 'query-replace)

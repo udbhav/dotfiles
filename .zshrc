@@ -45,4 +45,7 @@ plugins=(git virtualenv brew colored-man colorize django osx pip rails terminala
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/dgupta/.rvm/bin:/Users/dgupta/.rvm/bin
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/dgupta/.rvm/bin:/Users/dgupta/.rvm/bin
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

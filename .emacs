@@ -116,10 +116,11 @@
 ;; liquid files are html mode
 (setq auto-mode-alist (cons '("\\.liquid$" . html-mode) auto-mode-alist))
 
-;; scss files are css mode
+;; scss and less files are css mode
 (setq auto-mode-alist (cons '("\\.scss$" . css-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.scss.erb$" . css-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.css.erb$" . css-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.less$" . css-mode) auto-mode-alist))
 
 ;; delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)

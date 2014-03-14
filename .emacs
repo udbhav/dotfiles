@@ -134,6 +134,9 @@
 (add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
 
+;; don't indent arguments all the way in for ruby
+(setq ruby-deep-indent-paren nil)
+
 ;; python mode for wsgi
 (add-to-list 'auto-mode-alist '("\\.wsgi\\'" . python-mode))
 

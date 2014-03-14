@@ -48,3 +48,6 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 
 export EDITOR=emacsclient
+
+# rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

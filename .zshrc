@@ -51,3 +51,6 @@ export EDITOR=emacsclient
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# mac emacs
+alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"

@@ -63,7 +63,13 @@
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
 ;; (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 
-;; stop autosaving!
+;; don't autosave in project dirs
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;; no backups either
 (setq make-backup-files nil)
 
 ;; Set a default starting directory
@@ -180,3 +186,10 @@
 
 ;; query-replace
 (global-set-key (kbd "C-c r") 'query-replace)
+
+;; markdown
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))

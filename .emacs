@@ -63,6 +63,9 @@
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
 ;; (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 
+;; bind whitespace-cleanup to C-c C-w
+(global-set-key (kbd "C-c C-w") 'whitespace-cleanup)
+
 ;; don't autosave in project dirs
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -129,7 +132,7 @@
 (setq auto-mode-alist (cons '("\\.less$" . css-mode) auto-mode-alist))
 
 ;; delete trailing whitespace on save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; 80 column rule
 (require 'whitespace)
@@ -181,8 +184,8 @@
 (global-set-key (kbd "\C-x p") 'other-window-backward)2
 
 ;; spacey
-(require 'zone)
-(zone-when-idle 900)
+;; (require 'zone)
+;; (zone-when-idle 900)
 
 ;; query-replace
 (global-set-key (kbd "C-c r") 'query-replace)

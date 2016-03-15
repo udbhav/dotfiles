@@ -45,7 +45,7 @@ plugins=(git virtualenv brew colored-man colorize django osx pip rails terminala
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/opt/chefdk/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin
 
 export EDITOR=emacsclient
 

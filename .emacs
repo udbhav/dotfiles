@@ -136,7 +136,7 @@
 
 ;; 80 column rule
 (require 'whitespace)
-(setq whitespace-style '(face empty trailing))
+(setq whitespace-style '(face empty lines-tail trailing))
 (global-whitespace-mode t)
 
 ;; ruby mode for all those files

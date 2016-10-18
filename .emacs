@@ -228,3 +228,6 @@
 
 
 (add-to-list 'auto-mode-alist '("\\.swift\\'" . swift-mode))
+
+;; Use Emacs terminfo, not system terminfo
+(setq system-uses-terminfo nil)

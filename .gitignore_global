@@ -4,3 +4,4 @@
 .sass-cache/
 .DS_Store
 *.pyc
+npm-debug.log

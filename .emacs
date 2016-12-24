@@ -1,70 +1,47 @@
+;;; emacs-config --- for Udbhav Gupta
+
+;;; Commentary:
+;; lives in ~/, also symlink Emacs directory to your home
+
+;;; Code:
+
 ;; start emacs-server!
 (server-start)
-
-(add-to-list 'load-path "~/emacs")
 
 (progn (cd "~/emacs") (normal-top-level-add-subdirs-to-load-path))
 (add-to-list 'load-path "~/emacs")
 
-;; colors
-(load-theme 'wombat t)
+;; PACKAGE MANAGEMENT
 
-;; term colors
-'(term-default-fg-color ((t (:inherit term-color-white))))
-'(term-default-bg-color ((t (:inherit term-color-black))))
+(require 'use-package)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 
-`(term-color-red ((t (:foreground ,"#e5786d"
-                                  :background ,"#e5786d"))))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
+(package-initialize)
 
-;; php mode
-(load "php-mode")
-(add-to-list 'auto-mode-alist
-	     '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
+;; GLOBAL CONFIG
 
-(custom-set-variables
- '(inhibit-startup-screen t))
-
-;; remove menu
-(menu-bar-mode -1)
+;; predictive completion
+(use-package pabbrev
+  :init (setq pabbrev-read-only-error nil)
+  :ensure t)
 
 ;; ido (for completion in opening and switching buffers)
 (require 'ido)
 (ido-mode t)
 
 ;; Tabbing
-(setq default-tab-width 2); ;; Tab width
+(setq tab-width 2); ;; Tab width
 (setq-default indent-tabs-mode nil); ;; Use spaces for tabs only!
-(setq js-indent-level 2)
 (setq css-indent-offset 2)
 
-(setq line-number-mode t)
-(setq column-number-mode t)
-
-;; predictive completion
-(require 'pabbrev )
-(setq pabbrev-read-only-error nil)
-
-;; javascript mode
-(autoload 'javascript-mode "javascript" nil t)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . javascript-mode))
-
-;; django-mode
-(load "django-mode.elc")
-
-;; haml-mode
-(require 'haml-mode)
-
-;; coffeescript
-(require 'coffee-mode)
-(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-
-;; bind comment and uncomment to C-;
-(global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
-;; (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-
-;; bind whitespace-cleanup to C-c C-w
-(global-set-key (kbd "C-c C-w") 'whitespace-cleanup)
+;; no backups
+(setq make-backup-files nil)
 
 ;; don't autosave in project dirs
 (setq backup-directory-alist
@@ -72,14 +49,8 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;; no backups either
-(setq make-backup-files nil)
-
 ;; Set a default starting directory
 (setq default-directory "~/Sites/" )
-
-;; highlight parentheses
-(show-paren-mode 1)
 
 ;; Don't make me type yes or no in full!
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -95,73 +66,8 @@
 ;; No more double slashes in re-builder
 (setq reb-re-syntax 'string)
 
-;; Hippie Expand
-(global-set-key (kbd "M-/") 'hippie-expand)
-(setq hippie-expand-try-functions-list '(try-expand-dabbrev try-expand-dabbrev-all-buffers try-expand-dabbrev-from-kill try-complete-file-name-partially try-complete-file-name try-expand-all-abbrevs try-expand-list try-expand-line try-complete-lisp-symbol-partially try-complete-lisp-symbol))
-
-;; Org-mode settings
-(setq load-path (cons "~/emacs/org" load-path))
-(require 'org-install)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-;;(setq org-log-done t)
-;;(setq org-startup-indented t)
-;;(setq org-hide-leading-stars t)
-(add-hook 'org-mode-hook 'turn-on-font-lock)
-
-;; scratch message
-(setq initial-scratch-message nil)
-
-;; turn sound off
-(setq bell-volume 0)
-(setq sound-alist nil)
-
-(require 'sass-mode)
-
-(require 'yaml-mode)
-    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-
-;; liquid files are html mode
-(setq auto-mode-alist (cons '("\\.liquid$" . html-mode) auto-mode-alist))
-
-;; scss and less files are css mode
-(setq auto-mode-alist (cons '("\\.scss$" . css-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.scss.erb$" . css-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.css.erb$" . css-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.less$" . css-mode) auto-mode-alist))
-
 ;; delete trailing whitespace on save
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; 80 column rule
-(require 'whitespace)
-;; (setq whitespace-style '(face empty lines-tail trailing))
-;; (global-whitespace-mode t)
-
-;; ruby mode for all those files
-(add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
-
-;; don't indent arguments all the way in for ruby
-(setq ruby-deep-indent-paren nil)
-
-;; python mode for wsgi
-(add-to-list 'auto-mode-alist '("\\.wsgi\\'" . python-mode))
-
-;; copy and paste to and from os x
-(defun copy-from-osx ()
-  (shell-command-to-string "pbpaste"))
-
-(defun paste-to-osx (text &optional push)
-  (let ((process-connection-type nil))
-    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-      (process-send-string proc text)
-      (process-send-eof proc))))
-
-(setq interprogram-cut-function 'paste-to-osx)
-(setq interprogram-paste-function 'copy-from-osx)
-
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; terminal in emacs
 (defun visit-term-buffer ()
@@ -176,6 +82,9 @@
 
 (global-set-key (kbd "C-c t") 'visit-term-buffer)
 
+;; Use Emacs terminfo, not system terminfo
+(setq system-uses-terminfo nil)
+
 ;; window navigation
 (defun other-window-backward ()
   "Goto previous window"
@@ -183,32 +92,75 @@
   (other-window -1))
 (global-set-key (kbd "\C-x p") 'other-window-backward)2
 
-;; spacey
-;; (require 'zone)
-;; (zone-when-idle 900)
-
 ;; query-replace
 (global-set-key (kbd "C-c r") 'query-replace)
 
-;; markdown
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;; spacey
+(require 'zone)
+(zone-when-idle 900)
 
-;; package management
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
+;; PLATFORM CONFIG
 
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
-(package-initialize)
+;; copy and paste to and from os x
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
 
-(require 'web-mode)
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
+
+;; LINTING
+
+;; http://www.flycheck.org/manual/latest/index.html
+(use-package flycheck
+  :ensure
+  :config
+  (global-flycheck-mode)
+  ;; disable jshint since we prefer eslint checking
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
+
+  ;; use eslint with web-mode for jsx files
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+  ;; customize flycheck temp file prefix
+  (setq-default flycheck-temp-prefix ".flycheck")
+
+  ;; disable json-jsonlist checking for json files
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(json-jsonlist)))
+
+  ;; use local eslint executable
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+
+  :init (add-hook 'after-init-hook #'global-flycheck-mode)
+)
+
+
+
+;; MODE CONFIGS
+
+;; WEB
+
+(use-package web-mode
+  :ensure t)
+
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
@@ -217,66 +169,111 @@
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.liquid?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.liquid?\\'" . web-mode))
 
-(defun my-web-mode-hook ()
+;; indent 2 space in web mode
+(defun web-mode-indent-hook ()
   "Hooks for Web mode."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
 )
-(add-hook 'web-mode-hook  'my-web-mode-hook)
+(add-hook 'web-mode-hook 'web-mode-indent-hook)
 
+;; don't show lines-tail for html
+(defun web-mode-whitespace-hook ()
+  (if (equal web-mode-content-type "html")
+      (setq whitespace-style '(face empty trailing))))
+(add-hook 'web-mode-hook 'web-mode-whitespace-hook)
 
+;; jsx for all javascript
+(defun web-mode-jsx-hook ()
+  (if (equal web-mode-content-type "javascript")
+      (web-mode-set-content-type "jsx")))
+(add-hook 'web-mode-hook 'web-mode-jsx-hook)
+
+;; CSS
+
+(use-package css-mode
+  :ensure t)
+
+(use-package sass-mode
+  :ensure t)
+
+;; scss and less files are sass or css mode
+(setq auto-mode-alist (cons '("\\.scss$" . sass-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.scss.erb$" . sass-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.css.erb$" . css-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.less$" . css-mode) auto-mode-alist))
+
+;; MARKDOWN
+
+(use-package markdown-mode
+  :ensure t)
+
+;; (autoload 'markdown-mode "markdown-mode"
+;;    "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; spell checking in markdown
+(dolist (hook '(markdown-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+
+;; RUBY
+
+(add-to-list 'auto-mode-alist '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode))
+
+;; don't indent arguments all the way in for ruby
+(setq ruby-deep-indent-paren nil)
+
+;; PYTHON
+
+;; python mode for wsgi
+(add-to-list 'auto-mode-alist '("\\.wsgi\\'" . python-mode))
+
+;; SWIFT
+
+(use-package swift-mode
+  :ensure t)
 (add-to-list 'auto-mode-alist '("\\.swift\\'" . swift-mode))
 
-;; Use Emacs terminfo, not system terminfo
-(setq system-uses-terminfo nil)
+;; APPEARANCE
 
-;; http://www.flycheck.org/manual/latest/index.html
-(require 'flycheck)
+;; colors
+(use-package color-theme
+  :init (load-theme 'wombat t)
+  :ensure t)
 
-;; turn on flychecking globally
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; remove menu and startup screen
+(menu-bar-mode -1)
+(custom-set-variables
+ '(inhibit-startup-screen t))
 
-;; disable jshint since we prefer eslint checking
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(javascript-jshint)))
+;; term colors
+'(term-default-fg-color ((t (:inherit term-color-white))))
+'(term-default-bg-color ((t (:inherit term-color-black))))
+`(term-color-red ((t (:foreground ,"#e5786d"
+                                  :background ,"#e5786d"))))
 
-;; use eslint with web-mode for jsx files
-(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; show line number and column number
+(setq line-number-mode t)
+(setq column-number-mode t)
 
-;; customize flycheck temp file prefix
-(setq-default flycheck-temp-prefix ".flycheck")
+;; highlight parentheses
+(show-paren-mode 1)
 
-;; disable json-jsonlist checking for json files
-(setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(json-jsonlist)))
+;; scratch message
+(setq initial-scratch-message nil)
 
-;; https://github.com/purcell/exec-path-from-shell
-;; only need exec-path-from-shell on OSX
-;; this hopefully sets up path and other vars better
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+;; turn sound off
+(setq bell-volume 0)
+(setq sound-alist nil)
 
-;; adjust indents for web-mode to 2 spaces
-(defun my-web-mode-hook ()
-  "Hooks for Web mode. Adjust indents"
-  ;;; http://web-mode.org/
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-(add-hook 'web-mode-hook  'my-web-mode-hook)
-
-;; for better jsx syntax-highlighting in web-mode
-;; - courtesy of Patrick @halbtuerke
-(defadvice web-mode-highlight-part (around tweak-jsx activate)
-  (if (equal web-mode-content-type "jsx")
-    (let ((web-mode-enable-part-face nil))
-      ad-do-it)
-    ad-do-it))
-
-(provide '.emacs)
-
-
+(require 'whitespace)
+(setq whitespace-style '(face empty lines-tail trailing))
+(global-whitespace-mode t)

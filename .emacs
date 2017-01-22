@@ -39,6 +39,7 @@
 (setq tab-width 2); ;; Tab width
 (setq-default indent-tabs-mode nil); ;; Use spaces for tabs only!
 (setq css-indent-offset 2)
+(setq js-indent-level 2)
 
 ;; no backups
 (setq make-backup-files nil)
@@ -67,7 +68,7 @@
 (setq reb-re-syntax 'string)
 
 ;; delete trailing whitespace on save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; terminal in emacs
 (defun visit-term-buffer ()
@@ -96,8 +97,8 @@
 (global-set-key (kbd "C-c r") 'query-replace)
 
 ;; spacey
-(require 'zone)
-(zone-when-idle 900)
+;; (require 'zone)
+;; (zone-when-idle 900)
 
 ;; PLATFORM CONFIG
 
@@ -241,6 +242,12 @@
 (use-package swift-mode
   :ensure t)
 (add-to-list 'auto-mode-alist '("\\.swift\\'" . swift-mode))
+
+;; JSON
+(use-package json-mode :ensure)
+
+;; YAML
+(use-package yaml-mode :ensure)
 
 ;; APPEARANCE
 

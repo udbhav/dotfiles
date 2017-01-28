@@ -51,7 +51,7 @@
       `((".*" ,temporary-file-directory t)))
 
 ;; Set a default starting directory
-(setq default-directory "~/Sites/" )
+;; (setq default-directory "~/Sites/" )
 
 ;; Don't make me type yes or no in full!
 (defalias 'yes-or-no-p 'y-or-n-p)

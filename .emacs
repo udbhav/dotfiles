@@ -8,8 +8,8 @@
 ;; start emacs-server!
 (server-start)
 
-(progn (cd "~/emacs") (normal-top-level-add-subdirs-to-load-path))
-(add-to-list 'load-path "~/emacs")
+(progn (cd "~/.emacs-packages") (normal-top-level-add-subdirs-to-load-path))
+(add-to-list 'load-path "~/.emacs-packages")
 
 ;; PACKAGE MANAGEMENT
 

@@ -40,7 +40,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git virtualenv brew colored-man colorize django osx pip rails terminalapp vagrant)
+plugins=(git virtualenv colored-man colorize django pip rails terminalapp vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,4 +53,4 @@ export EDITOR=emacsclient
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # mac emacs
-alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+# alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"

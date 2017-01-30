@@ -45,12 +45,16 @@ plugins=(git virtualenv colored-man colorize django pip rails terminalapp vagran
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/opt/chefdk/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:/usr/local/heroku/bin:/Applications/Emacs.app/Contents/MacOS/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+
+export PATH=$HOME/.rbenv/bin:/opt/chefdk/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin
 
 export EDITOR=emacsclient
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 # mac emacs
 # alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"

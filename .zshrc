@@ -46,7 +46,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
-export PATH=$HOME/.rbenv/bin:/opt/chefdk/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/.rbenv/bin:/opt/chefdk/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/share/npm/bin:bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin
 
 export EDITOR=emacsclient
 

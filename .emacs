@@ -117,6 +117,9 @@
   (setq interprogram-cut-function 'paste-to-osx)
   (setq interprogram-paste-function 'copy-from-osx))
 
+(when (eq system-type 'gnu/linux)
+  (require 'ess-site))
+
 ;; LINTING
 
 ;; http://www.flycheck.org/manual/latest/index.html

@@ -68,7 +68,7 @@
 (setq reb-re-syntax 'string)
 
 ;; delete trailing whitespace on save
-;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; terminal in emacs
 (defun visit-term-buffer ()
@@ -103,17 +103,18 @@
 ;; PLATFORM CONFIG
 
 ;; copy and paste to and from os x
-;; (defun copy-from-osx ()
-;;   (shell-command-to-string "pbpaste"))
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
 
-;; (defun paste-to-osx (text &optional push)
-;;   (let ((process-connection-type nil))
-;;     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-;;       (process-send-string proc text)
-;;       (process-send-eof proc))))
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
 
-;; (setq interprogram-cut-function 'paste-to-osx)
-;; (setq interprogram-paste-function 'copy-from-osx)
+(when (eq system-type 'darwin)
+  (setq interprogram-cut-function 'paste-to-osx)
+  (setq interprogram-paste-function 'copy-from-osx))
 
 ;; LINTING
 
@@ -253,13 +254,20 @@
 
 ;; colors
 (use-package color-theme
-  :init (load-theme 'wombat t)
+  :init (load-theme 'nord t)
   :ensure t)
 
 ;; remove menu and startup screen
 (menu-bar-mode -1)
 (custom-set-variables
- '(inhibit-startup-screen t))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (lua-mode php+-mode php-mode nord magit yaml-mode web-mode swift-mode sass-mode pabbrev markdown-mode json-mode flycheck color-theme))))
 
 ;; term colors
 '(term-default-fg-color ((t (:inherit term-color-white))))
@@ -281,6 +289,15 @@
 (setq bell-volume 0)
 (setq sound-alist nil)
 
+;; magit config
+(global-set-key (kbd "C-x g") 'magit-status)
+
 (require 'whitespace)
 (setq whitespace-style '(face empty lines-tail trailing))
 (global-whitespace-mode t)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
